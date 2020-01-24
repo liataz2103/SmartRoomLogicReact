@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import propTypes from 'prop-types';
 import {Link} from 'react-router-dom';
-import Room from './Room';
 
 export default class Home extends Component {
         static propTypes = {

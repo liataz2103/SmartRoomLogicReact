@@ -54,10 +54,10 @@ export default class Add extends Component {
                         <form>
                             <div className="form-group">
                             <select className="form-control" onChange = {this.validChoice}>
-                                <option  value="Choose">Choose</option>
-                                <option  value="Bedroom">Bedroom</option>
-                                <option  value="BathRoom">BathRoom</option>
-                                <option  value="Kitchen">Kitchen</option>
+                                <option  value="choose">Choose</option>
+                                <option  value="bedroom">Bedroom</option>
+                                <option  value="bathRoom">BathRoom</option>
+                                <option  value="kitchen">Kitchen</option>
                             </select> 
                             </div>
                             <div class="form-group">

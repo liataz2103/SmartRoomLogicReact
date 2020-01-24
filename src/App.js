@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import './App.css';
 import{BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import Home from './components/Home';
@@ -33,14 +33,6 @@ export default class App extends Component {
     this.setState({singleRoom: [...filteredRooms]});
   }
   
-  sendProdToRoom = (product) => {
-    let listOfProds = [...this.state.productsForRoom];
-    listOfProds.push(product)
-    this.setState({productsForRoom: [...listOfProds]})
-  }
-
-
-
   render() {
   return (
     <div className="App">
@@ -50,7 +42,7 @@ export default class App extends Component {
         <Switch>
         <Route exact path='/' component={() =>{return <Home rooms={this.state.rooms} goToRoom={this.goToRoom}  />}}/>
         <Route exact path='/addroom' component={() =>{return <Add addRoom={this.creattRoom}/>}}/>
-        <Route exact path='/room' component={() =>{return <Room singleRoom = {this.state.singleRoom} sendProdToRoom= {this.sendProdToRoom} productsForRoom={this.state.productsForRoom} />}}/> 
+        <Route exact path='/room' component={() =>{return <Room singleRoom = {this.state.singleRoom}/>}}/> 
         </Switch>
       </Router>
      

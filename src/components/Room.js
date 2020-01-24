@@ -4,21 +4,10 @@ import propTypes from 'prop-types';
 
 
 export default class Room extends Component {
-    // constructor() {
-    //     super()
-    //     this.addProdToRoom = this.addProdToRoom.bind(this)
-        
-    //   }
-    
-                
     
     static propTypes = {
         singleRoom: propTypes.array.isRequired,
         prods: propTypes.array.isRequired,
-        sendProdToRoom: propTypes.func.isRequired,
-        productsForRoom: propTypes.array.isRequired
-        
-        
     }
 
     state = {
@@ -29,49 +18,32 @@ export default class Room extends Component {
  
 
      setChoosenProduct = (e) => {
-        //  let temp = [...this.state.selected]
-        //  if(e.target.value != "choose"){
-        //      temp.push(e.target.value)
-        //      this.setState({selected: [...temp]})
-        //  }
-
-        if(e.target.value != "choose"){
+        if(e.target.value !== "choose"){
             this.setState({selected: e.target.value})
         }
-      
     }
-
-    addProdToRoom = ()=>{
-        // set addProductClicked back to false
-        // this.setState({addProductClicked: false});
-        // let prodList= [...this.state.selected];
-        // prodList.push(this.state.selected )
-        // console.log(prodList)
-        this.props.sendProdToRoom(this.state.selected);
         
-        // if(tempProd.length === 0 && this.state.selected != "heater"){
-        //    tempProd.push(this.state.selected );
-
-        // }else if (tempProd.length > 0 && tempProd.length <5){
-        //     if(this.state.selected  === "stereo" && (!tempProd.includes(this.state.selected ))){
-        //         tempProd.push(this.state.selected )
-        //     }else if (this.state.selected  === "heater" && this.props.singleRoom.name === "kitchen" && (!tempProd.incudes(this.state.selected ))) {
-        //         tempProd.push(this.state.selected )
-        //     }else{
-        //         tempProd.push(this.state.selected )
-        //     }
-    
-                             
-        //     }else{
-        //         alert("error");
-
-        //     }
-
-        // this.setState({products:[...tempProd]});
-        // this.props.sendProdToRoom(this.state.products);
-
-
+    addProdToRoom = ()=>{
+        this.setState({addProductClicked:false})
+        // take from selected
+        let selected = this.state.selected
+        // each time add is clicked we push the item and update state with the list
+        let prodList = [...this.state.products]
+        if (selected === "stereo" && prodList.includes("stereo") === false) {
+            prodList.push(selected)
+            this.setState({products: [...prodList]})
+          } else if (selected === "heater" && this.props.singleRoom.type === "bathRoom") {
+            prodList.push(selected)
+            this.setState({products: [...prodList]})
+          } else if (selected === "lamp" || selected === "air-conditioner") {
+            prodList.push(selected)
+            this.setState({products: [...prodList]})
+          }else {
+              alert("noooooo")
+          }
     }
+        
+  
 
     renderSection = () => {
         if (this.state.addProductClicked === true){
@@ -109,7 +81,7 @@ export default class Room extends Component {
 
 
         let prods = [];
-        this.props.productsForRoom.map((prod)=> {
+        this.state.products.map((prod)=> {
             prods.push(
                 <div className="prodSection" >
                     <div style={{width: "100px", border:"1px solid black"}}>
