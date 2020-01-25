@@ -4,6 +4,7 @@ import{BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import Home from './components/Home';
 import Add from './components/Add';
 import Room from './components/Room';
+import Nav from './components/Nav';
 
 export default class App extends Component {
 
@@ -36,13 +37,17 @@ export default class App extends Component {
   render() {
   return (
     <div className="App">
+      
       <h1>Smart House</h1>
       <Router>
-        <manue></manue>
-        <Switch>
-        <Route exact path='/' component={() =>{return <Home rooms={this.state.rooms} goToRoom={this.goToRoom}  />}}/>
-        <Route exact path='/addroom' component={() =>{return <Add addRoom={this.creattRoom}/>}}/>
+      <Nav/>
+      <Route exact path='/addroom' component={() =>{return <Add addRoom={this.creattRoom}/>}}/>
         <Route exact path='/room' component={() =>{return <Room singleRoom = {this.state.singleRoom}/>}}/> 
+        <Route exact path='/' component={() =>{return <Home rooms={this.state.rooms} goToRoom={this.goToRoom}  />}}/>
+      
+        <Switch>
+        
+      
         </Switch>
       </Router>
      

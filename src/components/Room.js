@@ -84,7 +84,7 @@ export default class Room extends Component {
         this.state.products.map((prod)=> {
             prods.push(
                 <div className="prodSection" >
-                    <div style={{width: "100px", border:"1px solid black"}}>
+                    <div style={{width: "100px", border:"1px solid black", backgroundColor: "red"}}>
                         {prod}
                     </div>
         
