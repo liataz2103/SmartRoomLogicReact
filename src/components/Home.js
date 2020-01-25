@@ -6,6 +6,7 @@ export default class Home extends Component {
         static propTypes = {
             rooms: propTypes.array.isRequired,
             goToRoom: propTypes.func.isRequired,
+            prods: propTypes.array.isRequired
             
            
         }
@@ -29,12 +30,26 @@ export default class Home extends Component {
             )
         })}
 
+        let prods = []
+        
+        {this.props.prods.map((prod, i) => {
+            prods.push(
+                <div>
+                    <p>{prod}</p>
+                </div>
+
+            )
+        })}
+
+
+
        
 
         return (
             <div>
                 <div className="rooms">
                     {addedRooms}
+                    {prods}
                 
 
                 </div>

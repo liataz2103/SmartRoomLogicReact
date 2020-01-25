@@ -1,14 +1,21 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
-
+import {Link} from 'react-router-dom';
 
 
 export default class Room extends Component {
+
+    constructor( props ){
+        super( props );
+        this.goToRooms = this.goToRooms.bind(this);
+      }
     
     static propTypes = {
         singleRoom: propTypes.array.isRequired,
         prods: propTypes.array.isRequired,
+        sendProdToRoom: propTypes.func.isRequired
     }
+
 
     state = {
         addProductClicked: false,
@@ -22,7 +29,11 @@ export default class Room extends Component {
             this.setState({selected: e.target.value})
         }
     }
+
+    
+    
         
+
     addProdToRoom = ()=>{
         this.setState({addProductClicked:false})
         // take from selected
@@ -40,13 +51,26 @@ export default class Room extends Component {
             this.setState({products: [...prodList]})
           }else {
               alert("noooooo")
-          }
+          }    
     }
+
+    goToRooms = () =>{
+        let prods = [...this.state.products]
+        let singles = [...this.props.singleRoom]
+        let roomName = singles[0].name
+        // console.log(roomName)
+        // console.log(roomName);
+        prods.map((prod) => {
+            this.props.sendProdToRoom(prod, roomName)
+       }) 
+     }
+    
         
   
 
     renderSection = () => {
         if (this.state.addProductClicked === true){
+            
             return(
                 <div>
                 <select className="form-control" onChange ={this.setChoosenProduct}>
@@ -61,8 +85,14 @@ export default class Room extends Component {
                  
                     
             )
+    }else {
+        
     }
 }
+    activateProduct = () => {
+        let activated = false;
+
+    }
  
 
     render() {
@@ -74,6 +104,7 @@ export default class Room extends Component {
                         <p>Name :{item.name}</p>
                         <p>Type :{item.type}</p>
                         <button onClick={() => {this.setState({ addProductClicked: true});}}>Add Product</button>
+                        <Link to="/" onClick = {this.goToRooms}> >To Activate products go to rooms </Link>
                 </div>
             )
 
@@ -90,18 +121,37 @@ export default class Room extends Component {
         
                 </div>
             )
-
         })
+
+        let roomProds = [];
+            this.props.singleRoom[0].products.map((prodItem) => {
+                roomProds.push(
+                    <div ><button style={{width: "100px", border:"1px solid black", backgroundColor: "red"}}>{prodItem}</button></div>
+    
+                )
+            })
+    
+
+        
+        
+
+        
+        
     
 
         return (
             <div className="container">
                 {list}
                 {prods}
+                {roomProds}
+             
                 
-
+                
+                <div></div>
                 
                 <div className="addProductSection">{this.renderSection()}</div>
+                
+                
 
                             
             </div>
