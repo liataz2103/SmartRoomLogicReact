@@ -15,9 +15,9 @@ export default class App extends Component {
     productsForRoom: []
   };
 
-  creattRoom = (name, color, type, products,) => {
+  creattRoom = (name, color, type, products) => {
     let addedRooms = [...this.state.rooms];
-    addedRooms.push({name: name, color:color, type:type, products:[],})
+    addedRooms.push({name: name, color:color, type:type, products:[]})
     console.log(addedRooms);
     this.setState({rooms: [...addedRooms]});  
    
@@ -32,11 +32,7 @@ export default class App extends Component {
       return i === index;
     })]
     this.setState({singleRoom: [...filteredRooms]});
-    this.state.productsForRoom.map((prod)=>{
-      return <div>{prod}</div>
-
-    })
-
+    
 
   }
 
@@ -47,15 +43,30 @@ export default class App extends Component {
     // });
     temp.map((element) =>{
       if(element.name === roomName){
-        element.products.push(prod)
+        element.products.push({name: prod, color: "red"})
+    
+    
       }
     })
-    console.log(temp)
+  }
 
+  activateProd = (index, name) => {
+    let temp = [...this.state.rooms];
+    temp.map((element) =>{
+      if(element.name === name){
+        element.products.map((item, i)=>{
+          if(i === index){
+            if (item.color === "red"){
+              item.color = "green"
+            }else{
+              item.color = "red"
+            }
+          }
+        })    
+      }
+    })
+    this.setState({rooms: [...temp]})
     
-    
-    
-   
   }
   
   render() {
@@ -65,7 +76,7 @@ export default class App extends Component {
       <h1>Smart House</h1>
       <Router>
       <Route exact path='/addroom' component={() =>{return <Add addRoom={this.creattRoom}/>}}/>
-      <Route exact path='/room' component={() =>{return <Room sendProdToRoom={this.sendProdToRoom} singleRoom = {this.state.singleRoom} />}}/> 
+      <Route exact path='/room' component={() =>{return <Room sendProdToRoom={this.sendProdToRoom} singleRoom = {this.state.singleRoom} activateProd={this.activateProd} />}}/> 
       <Route exact path='/' component={() =>{return <Home rooms={this.state.rooms} goToRoom={this.goToRoom} prods={this.state.productsForRoom} />}}/>
       
         <Switch>

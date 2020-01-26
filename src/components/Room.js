@@ -13,7 +13,8 @@ export default class Room extends Component {
     static propTypes = {
         singleRoom: propTypes.array.isRequired,
         prods: propTypes.array.isRequired,
-        sendProdToRoom: propTypes.func.isRequired
+        sendProdToRoom: propTypes.func.isRequired,
+        activateProd: propTypes.func.isRequired
     }
 
 
@@ -89,10 +90,12 @@ export default class Room extends Component {
         
     }
 }
-    activateProduct = () => {
-        let activated = false;
+    // trial = () => {
+    //     let temp = [...this.props.singleRoom]
+    //     console.log(temp[0].products)
+    // }
 
-    }
+    
  
 
     render() {
@@ -123,13 +126,22 @@ export default class Room extends Component {
             )
         })
 
+        let temp = [...this.props.singleRoom]
         let roomProds = [];
-            this.props.singleRoom[0].products.map((prodItem) => {
-                roomProds.push(
-                    <div ><button style={{width: "100px", border:"1px solid black", backgroundColor: "red"}}>{prodItem}</button></div>
+        temp[0].products.map((prodItem, i)=>{
+            roomProds.push(
+            <div><button onClick={() => {this.props.activateProd(i, this.props.singleRoom[0].name);}} style={{width: "100px", border:"1px solid black", backgroundColor: `${prodItem.color}`}}>{prodItem.name}</button></div>
+
+            )
+        })
+
+        // let roomProds = [];
+        //     this.props.singleRoom[0].products.map((prodItem) => {
+        //         roomProds.push(
+        //             <div ><button style={{width: "100px", border:"1px solid black", backgroundColor: "red"}}>{prodItem}</button></div>
     
-                )
-            })
+        //         )
+        //     })
     
 
         
@@ -143,11 +155,12 @@ export default class Room extends Component {
             <div className="container">
                 {list}
                 {prods}
+                {/* {roomProds} */}
                 {roomProds}
              
                 
                 
-                <div></div>
+                <button onClick={this.trial}>ClickMe</button>
                 
                 <div className="addProductSection">{this.renderSection()}</div>
                 
